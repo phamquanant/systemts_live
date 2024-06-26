@@ -1,0 +1,26 @@
+NODE_ENV= development
+DB_TYPE= mysql
+DB_HOST=34.143.138.45
+DB_PORT=3306
+DB_USERNAME= systems_live
+DB_PASSWORD= ATzY8E6fb7ZbY627
+DB_DATABASE= systems_live
+DB_SYNCHRONIZE=false
+DB_LOGGING=false
+DB_POST = 3306
+DB_ENTITIES= /../**/**/entities/*.entity{.ts,.js}
+JWT_PRIVATE_KEY=ATzY8E6fb7ZbY627
+
+SECRET_KEY = systems_live609_secret
+
+SECRET_KEY_REFRESH_TOKEN = systems_live906_secret
+
+USE_SWAGGER= true
+
+PORT=3400
+
+API_PREFIX=api
+PASS_SWAGGER=p2s2w91k
+
+HTTP_BASIC_USER=myusername
+HTTP_BASIC_PASS=password123
