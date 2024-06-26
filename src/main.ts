@@ -6,12 +6,25 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as basicAuth from 'express-basic-auth';
 import 'dotenv/config';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   initializeTransactionalContext();
 
   const app = await NestFactory.create(AppModule);
   //setup configuration service
+  const microservice =
+    await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+      transport: Transport.TCP,
+      options: {
+        host: '10.0.3.1',
+        port: 3001,
+      },
+    });
+
+  microservice.listen().then(() => {
+    console.log('Microservice is running');
+  });
 
   //use validate
   app.useGlobalPipes(new ValidationPipe());

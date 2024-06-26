@@ -4,6 +4,8 @@ import { hashSync, compareSync } from 'bcryptjs';
 export class AppService {
   getHello(): string {
     const pass = hashSync('hello');
+    console.log("hello");
+    
     return compareSync('hello', pass) ? 'ok' : 'no';
   }
 }
