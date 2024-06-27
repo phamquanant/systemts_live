@@ -6,32 +6,36 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { PlatformService } from './platform.service';
 import { CreatePlatformDto } from './dto/create-platform.dto';
 import { UpdatePlatformDto } from './dto/update-platform.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 @ApiTags('Platform')
 @Controller('platform')
 export class PlatformController {
   constructor(private readonly platformService: PlatformService) {}
-
-  @Post()
+  @ApiOperation({summary:"create"})
+  @Post("/create")
   create(@Body() createPlatformDto: CreatePlatformDto) {
     return this.platformService.create(createPlatformDto);
   }
-
-  @Get()
+  @ApiOperation({summary:"list"})
+  @Get("/list")
   findAll() {
     return this.platformService.findAll();
   }
-
-  @Get(':id')
+  @ApiOperation({summary:"detail"})
+  @Get('/detail/:id')
   findOne(@Param('id') id: string) {
     return this.platformService.findOne(+id);
   }
 
-  @Patch(':id')
+  @ApiOperation({summary:"update"})
+  @Patch('/update/:id')
   update(
     @Param('id') id: string,
     @Body() updatePlatformDto: UpdatePlatformDto,
@@ -39,8 +43,17 @@ export class PlatformController {
     return this.platformService.update(+id, updatePlatformDto);
   }
 
-  @Delete(':id')
+  @ApiOperation({summary:"delete"})
+  @Delete('/delete/:id')
   remove(@Param('id') id: string) {
     return this.platformService.remove(+id);
+  }
+
+  @Post("/upload")
+  @UseInterceptors(FileInterceptor('file')) // 'file' is the name of the field in the form data
+  uploadFile(@UploadedFile() file) {
+    console.log(file); // This will contain the file metadata
+    // Handle file processing, e.g., save file info to database, etc.
+    return { filename: file.filename }; // Respond with uploaded file details
   }
 }

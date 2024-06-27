@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateVpDto } from './dto/create-vp.dto';
 import { UpdateVpDto } from './dto/update-vp.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Vps } from './entities/vps.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class VpsService {
-  create(createVpDto: CreateVpDto) {
-    return 'This action adds a new vp';
+  constructor(
+    @InjectRepository(Vps)
+    private vpsRepository: Repository<Vps>,
+  ) {}
+  async create(createVpDto: CreateVpDto) {
+    return await this.vpsRepository.save(createVpDto);
   }
 
-  findAll() {
-    return `This action returns all vps`;
+  async findAll() {
+    return await this.vpsRepository.find();
   }
 
   findOne(id: number) {

@@ -9,6 +9,8 @@ import { SourcetypeModule } from './sourcetype/sourcetype.module';
 import { VpsModule } from './vps/vps.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
+import { StatisticalModule } from './statistical/statistical.module';
+import { ServiceModule } from './service/service.module';
 
 @Module({
   imports: [
@@ -37,6 +39,8 @@ import { OrderModule } from './order/order.module';
       }),
     }),
     OrderModule,
+    StatisticalModule,
+    ServiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
