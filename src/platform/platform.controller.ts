@@ -8,14 +8,17 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
 import { PlatformService } from './platform.service';
 import { CreatePlatformDto } from './dto/create-platform.dto';
 import { UpdatePlatformDto } from './dto/update-platform.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 @ApiTags('Platform')
 @Controller('platform')
+@ApiBearerAuth()
 export class PlatformController {
   constructor(private readonly platformService: PlatformService) {}
   @ApiOperation({summary:"create"})
@@ -24,6 +27,7 @@ export class PlatformController {
     return this.platformService.create(createPlatformDto);
   }
   @ApiOperation({summary:"list"})
+  @UseGuards(JwtAuthGuard)
   @Get("/list")
   findAll() {
     return this.platformService.findAll();
