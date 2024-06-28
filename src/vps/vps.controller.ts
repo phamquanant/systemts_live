@@ -6,11 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { VpsService } from './vps.service';
 import { CreateVpDto } from './dto/create-vp.dto';
 import { UpdateVpDto } from './dto/update-vp.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('Vps')
 @Controller('vps')
 export class VpsController {
@@ -26,9 +27,21 @@ export class VpsController {
   @ApiOperation({
     summary:"list"
   })
-  @Get("/list")
-  findAll() {
-    return this.vpsService.findAll();
+  
+  @Get('/list')
+  @ApiOperation({ summary: 'Get all vps' })
+  @ApiResponse({ status: 200, description: 'Returns all platforms.' })
+  @ApiQuery({name: 'keyword', required: false})
+  @ApiQuery({name: 'offset', required: false})
+  @ApiQuery({name: 'limit', required: false})
+  async findAll(
+    @Query('language') language?: string,
+    @Query('keyword') keyword?: string,
+    @Query('offset') offset?: string,
+    @Query('limit') limit?: string,
+  ) {
+    //list platform
+    return this.vpsService.findAll({search: keyword,limit: parseInt(limit), offset: parseInt(offset)});
   }
 
 
@@ -36,7 +49,7 @@ export class VpsController {
     summary:"Detail"
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.vpsService.findOne(+id);
   }
   @ApiOperation({

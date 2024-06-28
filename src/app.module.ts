@@ -11,6 +11,8 @@ import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
 import { StatisticalModule } from './statistical/statistical.module';
 import { ServiceModule } from './service/service.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -41,6 +43,10 @@ import { ServiceModule } from './service/service.module';
     OrderModule,
     StatisticalModule,
     ServiceModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+      exclude: ['/api/(.*)'],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

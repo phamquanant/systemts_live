@@ -5,5 +5,11 @@ export class CreatePlatformDto {
         description: 'name',
         example: 'string',
       })
-      name: string
+      name: string;
+
+    @ApiProperty({
+      description: 'name',
+      example: 'string',
+    })
+    icon: string
 }

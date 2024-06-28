@@ -1,10 +1,10 @@
-import { Link } from 'src/genreral/entities/links.entity';
-import { Log_order } from 'src/genreral/entities/log_order.entity';
-import { Source_Type } from 'src/genreral/entities/source_type.entity';
-import { Status_order } from 'src/genreral/entities/status_order.entity';
-import { Platform } from 'src/platform/entities/platform.entity';
-import { User } from 'src/user/entities/user.entity';
-import { Vps } from 'src/vps/entities/vps.entity';
+import { Link } from 'src/entities/links.entity';
+import { Log_order } from 'src/entities/log_order.entity';
+import { Source_Type } from 'src/entities/source_type.entity';
+import { Status_order } from 'src/entities/status_order.entity';
+import { Platform } from 'src/entities/platform.entity';
+import { User } from 'src/entities/user.entity';
+import { Vps } from 'src/entities/vps.entity';
 import {
   Column,
   Entity,
@@ -41,9 +41,6 @@ export class Order {
 
   @OneToMany(() => Log_order, (log_order) => log_order.order)
   log_orders: Log_order[];
-
-  @OneToMany(() => Vps, (vps) => vps.order)
-  vps: Vps[];
 
   @ManyToOne(() => Source_Type, (source_type) => source_type.orders)
   source_type: Source_Type;

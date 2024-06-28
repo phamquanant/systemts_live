@@ -8,6 +8,7 @@ import { ApiTags, ApiBody, ApiOperation, ApiResponse, ApiBearerAuth } from '@nes
 
 @ApiTags('Auth')
 @Controller('auth')
+@ApiBearerAuth()
 export class AuthController {
   constructor(private authService: AuthService) {}
 

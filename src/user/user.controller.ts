@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('User')
 @Controller('user')
 export class UserController {
@@ -13,9 +13,20 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
+  @Get('/list')
+  @ApiOperation({ summary: 'Get all user' })
+  @ApiResponse({ status: 200, description: 'Returns all platforms.' })
+  @ApiQuery({name: 'keyword', required: false})
+  @ApiQuery({name: 'offset', required: false})
+  @ApiQuery({name: 'limit', required: false})
+  async findAll(
+    @Query('language') language?: string,
+    @Query('keyword') keyword?: string,
+    @Query('offset') offset?: string,
+    @Query('limit') limit?: string,
+  ) {
+    //list platform
+    return this.userService.findAll({search: keyword,limit: parseInt(limit), offset: parseInt(offset)});
   }
 
   @Get(':id')

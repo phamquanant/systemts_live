@@ -1,4 +1,4 @@
-import { Vps } from 'src/vps/entities/vps.entity';
+import { Vps } from 'src/entities/vps.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

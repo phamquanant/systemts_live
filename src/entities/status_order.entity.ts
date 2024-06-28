@@ -1,14 +1,14 @@
-import { Order } from 'src/order/entities/order.entity';
+import { Order } from 'src/entities/order.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Platform {
+export class Status_order {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column()
   name: string;
 
-  @OneToMany(() => Order, (order) => order.platform)
+  @OneToMany(() => Order, (order) => order.status_order)
   orders: Order[];
 }

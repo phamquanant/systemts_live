@@ -10,8 +10,9 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   initializeTransactionalContext();
-
+  
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   //setup configuration service
   const microservice =
     await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
@@ -54,5 +55,6 @@ async function bootstrap() {
   await app.listen(process.env.PORT || 3002, () => {
     console.log(`Server running at port:${process.env.PORT}`);
   });
+  console.log(`Application is running on: ${await app.getUrl()}`)
 }
 bootstrap();

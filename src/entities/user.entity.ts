@@ -1,6 +1,6 @@
-import { Role } from 'src/genreral/entities/role.entity';
-import { Status } from 'src/genreral/entities/status.entity';
-import { Order } from 'src/order/entities/order.entity';
+import { Role } from 'src/entities/role.entity';
+import { Status } from 'src/entities/status.entity';
+import { Order } from 'src/entities/order.entity';
 import {
   BeforeInsert,
   Column,
